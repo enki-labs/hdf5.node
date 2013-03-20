@@ -154,6 +154,8 @@ namespace NodeHDF5 {
             returnVals->Set(i, row);
         }
 
+        delete data;
+
         return scope.Close(returnVals);
     }
 
