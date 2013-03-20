@@ -36,6 +36,8 @@ namespace NodeHDF5 {
         
         // member method prototypes
         SetPrototypeMethod(t, "group", OpenGroup);
+
+        SetPrototypeMethod(t, "dataSet", OpenDataSet);
         
         // append this function to the target object
         target->Set(String::NewSymbol("File"), t->GetFunction());
@@ -100,6 +102,36 @@ namespace NodeHDF5 {
                 
                 Local<Value>::New(Null()),
                 Local<Value>::New(Group::Instantiate(*group_name, args.This()))
+                
+        };
+        
+        // execute callback
+        Local<Function> callback = Local<Function>::Cast(args[1]);
+        callback->Call(Context::GetCurrent()->Global(), 2, argv);
+        
+        return scope.Close(Undefined());
+        
+    }
+
+    Handle<Value> File::OpenDataSet (const Arguments& args) {
+        
+        HandleScope scope;
+        
+        // fail out if arguments are not correct
+        if (args.Length() != 2 || !args[0]->IsString() || !args[1]->IsFunction()) {
+            
+            ThrowException(v8::Exception::SyntaxError(String::New("expected name, callback")));
+            return scope.Close(Undefined());
+            
+        }
+        
+        String::Utf8Value set_name (args[0]->ToString());
+        
+        // create callback params
+        Local<Value> argv[2] = {
+                
+                Local<Value>::New(Null()),
+                Local<Value>::New(DataSet::Instantiate(*set_name, args.This()))
                 
         };
         

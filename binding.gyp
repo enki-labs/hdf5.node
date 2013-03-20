@@ -8,7 +8,8 @@
             'sources': [
                 'src/hdf5.cc',
                 'src/h5_file.cc',
-                'src/h5_group.cc'
+                'src/h5_group.cc',
+                'src/h5_dataSet.cc'
             ],
             'link_settings': {
                 'libraries': [

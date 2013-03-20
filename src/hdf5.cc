@@ -16,6 +16,8 @@ extern "C" {
         
         // initialize wrapped object factories
         Group::Initialize();
+
+        DataSet::Initialize();
         
     }
     

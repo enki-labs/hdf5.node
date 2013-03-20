@@ -19,6 +19,8 @@ namespace NodeHDF5 {
             File(const char* path); ~File();
             static Handle<Value> New (const Arguments& args);
             static Handle<Value> OpenGroup (const Arguments& args);
+
+            static Handle<Value> OpenDataSet (const Arguments& args);
         
     };
     
@@ -31,6 +33,20 @@ namespace NodeHDF5 {
             
         public:
             Group(H5::Group group);
+            static void Initialize ();
+            static Handle<Value> Instantiate (const char* path, Local<Object> file);
+        
+    };
+
+    class DataSet : public ObjectWrap {
+        
+        private:
+            H5::DataSet m_dataSet;
+            static Persistent<Function> Constructor;
+            static Handle<Value> New (const Arguments& args);
+            
+        public:
+            DataSet(H5::DataSet dataSet);
             static void Initialize ();
             static Handle<Value> Instantiate (const char* path, Local<Object> file);
         
