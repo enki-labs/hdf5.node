@@ -19,7 +19,6 @@ namespace NodeHDF5 {
             File(const char* path); ~File();
             static Handle<Value> New (const Arguments& args);
             static Handle<Value> OpenGroup (const Arguments& args);
-
             static Handle<Value> OpenDataSet (const Arguments& args);
         
     };
@@ -47,9 +46,27 @@ namespace NodeHDF5 {
             
         public:
             DataSet(H5::DataSet dataSet);
+            H5::DataSet& DataSetObject();
             static void Initialize ();
-            static Handle<Value> Instantiate (const char* path, Local<Object> file);
+            static Handle<Value> Instantiate (const char* path, Local<Object> file);            
+            static Handle<Value> OpenDataSpace (const Arguments& args);
+            static Handle<Value> ReadSync (const Arguments& args);
         
+    };
+
+    class DataSpace : public ObjectWrap {
+        
+        private:
+            H5::DataSpace m_dataSpace;
+            static Persistent<Function> Constructor;
+            static Handle<Value> New (const Arguments& args);
+            
+        public:
+            DataSpace(H5::DataSpace dataSpace);
+            static void Initialize ();
+            static Handle<Value> Instantiate (Local<Object> file);
+            static Handle<Value> GetDimensions (const Arguments& args);
+            
     };
 
 };

@@ -19,6 +19,8 @@ extern "C" {
 
         DataSet::Initialize();
         
+        DataSpace::Initialize();
+        
     }
     
     NODE_MODULE(hdf5, init)

@@ -9,7 +9,8 @@
                 'src/hdf5.cc',
                 'src/h5_file.cc',
                 'src/h5_group.cc',
-                'src/h5_dataSet.cc'
+                'src/h5_dataSet.cc',
+                'src/h5_dataSpace.cc'
             ],
             'link_settings': {
                 'libraries': [
